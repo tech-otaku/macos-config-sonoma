@@ -5,7 +5,7 @@
 # NSGlobalDomain is synonymous with .GlobalPreferences
 # '-g' and '-globalDomain' can be used as synonyms for NSGlobalDomain or .GlobalPreferences
 
-# macOS 12 Monterey
+# macOS 14 Sonoma
 
 
 
@@ -1520,6 +1520,32 @@ EOF
 # See homebrew.sh
 
 
+
+
+# # # # # # # # # # # # # # # # # # # # # # # # # #
+# # GUI SCRIPTING REPLACEMENTS
+# #
+
+# System Settings > Network > Firewall > Firewall...
+    # off
+        #sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate off
+    # on
+        sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
+
+
+# System Settings > Sound > Output volume
+    # 25%
+        osascript -e "set volume output volume 25"
+
+
+# System Settings > Lock Screen > Require password after screen saver begins or display is turned off 
+    # Never
+        sysadminctl -screenLock off  -password -          # Will prompt for password
+
+
+# System Settings > Users & Groups > Automatically login as
+    # off
+        sudo sysadminctl -autologin off
 
 
 # Revoke sudo privileges

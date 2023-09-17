@@ -7,10 +7,11 @@ BBEDIT="14.6.1"
 BLACKLIGHT="2.3.5"
 EVERNOTE="7.13_458080"
 FORKLIFT="3.5.8"
+HOUDAHGEO="6.4.2"
 LITTLESNITCH="4.4.3"
 LOGITECH="9.40.75"
 NAVICAT="121"
-QUERIOUS="3.3.2"
+QUERIOUS="4.0.6"
 
 case "$1" in
     adguard)
@@ -133,6 +134,15 @@ case "$1" in
         hdiutil attach ~/Downloads/GoogleDrive.dmg
         open /Volumes/Install\ Google\ Drive/GoogleDrive.pkg    # Opens the Google Drive installer
         ;;
+    houdah)
+        [ -f ~/Downloads/HoudahGeo${HOUDAHGEO}.zip ] && rm ~/Downloads/HoudahGeo${HOUDAHGEO}.zip
+        curl -o ~/Downloads/HoudahGeo${HOUDAHGEO}.zip -L https://www.houdah.com/houdahGeo/download_assets/HoudahGeo${HOUDAHGEO}.zip
+        cd ~/Downloads
+        unzip -o ~/Downloads/HoudahGeo${HOUDAHGEO}.zip
+        [ -d /Applications/HoudahGeo.app ] && rm -rf /Applications/HoudahGeo.app
+        mv ~/Downloads/HoudahGeo.app /Applications
+        ;;
+
     iterm)
         [ -f ~/Downloads/iterm.zip ] && rm ~/Downloads/iterm.zip
         curl -o ~/Downloads/iterm.zip -L https://iterm2.com/downloads/stable/latest
@@ -170,6 +180,14 @@ case "$1" in
         yes | hdiutil attach ~/Downloads/Querious.dmg > /dev/null
         cp -r /Volumes/Querious\ ${QUERIOUS}/Querious.app /Applications/Querious.app
         hdiutil detach /Volumes/Querious\ ${QUERIOUS}
+        ;;
+    transmit)
+        [ -f ~/Downloads/Transmit.zip ] && rm ~/Downloads/Transmit.zip
+        curl -o ~/Downloads/Transmit.zip -L https://panic.com/download/transmit/Transmit-5-Latest.zip
+        cd ~/Downloads
+        unzip -o ~/Downloads/Transmit.zip
+        [ -d /Applications/Transmit.app ] && rm -rf /Applications/Transmit.app
+        mv ~/Downloads/Transmit.app /Applications
         ;;
     typora)
         [ -f ~/Downloads/Typora.dmg ] && rm ~/Downloads/Typora.dmg
