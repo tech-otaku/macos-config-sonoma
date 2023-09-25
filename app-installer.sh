@@ -2,6 +2,7 @@
 
 # USAGE: [bash] ${HOME}/macos-config-catalina-master/app-installer.sh <app>
 
+APPCLEANER="3.6.8"
 AUTHY="2.2.1"
 BBEDIT="14.6.1"
 BLACKLIGHT="2.3.5"
@@ -35,6 +36,14 @@ case "$1" in
         unzip -o ~/Downloads/atom-mac.zip
         [ -d /Applications/Atom.app ] && rm -rf /Applications/Atom.app
         mv ~/Downloads/Atom.app /Applications
+        ;;
+    appcleaner)
+        [ -f ~/Downloads/AppCleaner_${APPCLEANER}.zip ] && rm ~/Downloads/AppCleaner_${APPCLEANER}.zip
+        curl -o ~/Downloads/AppCleaner_${APPCLEANER}.zip -L https://freemacsoft.net/downloads/AppCleaner_${APPCLEANER}.zip
+        cd ~/Downloads
+        unzip -o ~/Downloads/AppCleaner_${APPCLEANER}.zip
+        [ -d /Applications/AppCleaner.app ] && rm -rf /Applications/AppCleaner.app
+        mv ~/Downloads/AppCleaner.app /Applications
         ;;
     authy)
         [ -f ~/Downloads/Authy\ Desktop-${AUTHY}.dmg ] && rm ~/Downloads/Authy\ Desktop-${AUTHY}.dmg

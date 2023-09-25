@@ -202,13 +202,16 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             move_directory_entry "D" "$SOURCE/Library/Group Containers/2E337YPCZY.airmail" "/Users/steve/Library/Group Containers/2E337YPCZY.airmail"
             move_directory_entry "F" "$SOURCE/Library/Preferences/it.bloop.airmail2.plist" "/Users/steve/Library/Preferences/it.bloop.airmail2.plist"
             ;;
-        alfred)            # Alfred 3.app
+        alfred)         # Alfred 3.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/Alfred 3" "/Users/steve/Library/Application Support/Alfred 3"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.runningwithcrayons.Alfred-3.plist" "/Users/steve/Library/Preferences/com.runningwithcrayons.Alfred-3.plist"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.runningwithcrayons.Alfred-Preferences-3.plist" "/Users/steve/Library/Preferences/com.runningwithcrayons.Alfred-Preferences-3.plist"
             #F="$SOURCE"/steve/Library/Caches/com.runningwithcrayons.Alfred-3; if [ -f "$F" ];then mv "$F" /Users/steve/Library/Caches/;fi
             ;;
-        appshelf)        # AppShelf.app
+        appcleaner)     # AppCleaner.app
+            move_directory_entry "F" "$SOURCE/Library/Preferences/net.freemacsoft.AppCleaner.plist" "/Users/steve/Library/Preferences/net.freemacsoft.AppCleaner.plist"
+            ;;
+        appshelf)       # AppShelf.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/AppShelf" "/Users/steve/Library/Application Support/AppShelf"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.kedisoft.AppShelf.plist" "/Users/steve/Library/Preferences/com.kedisoft.AppShelf.plist"
             ;;
@@ -601,6 +604,9 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             ;;
         wpcli)            # WordPress Command-Line Tool
             create_symbolic_link "${HOME}/Library/Mobile Documents/com~apple~CloudDocs/.wp-cli_shared" "${HOME}/.wp-cli"
+            ;;
+        ytdlp)            # YouTube Downloader
+            move_directory_entry "D" "$SOURCE/.yt-dlp" "/Users/steve/.yt-dlp"
             ;;
         xampp)            # XAMPP
             ;;
