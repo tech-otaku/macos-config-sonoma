@@ -370,7 +370,10 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.iTunes.plist" "/Users/steve/Library/Preferences/com.apple.iTunes.plist"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.iTunes.plugins" "/Users/steve/Library/Preferences/com.apple.iTunes.plugins"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.iTunes.utls.plist" "/Users/steve/Library/Preferences/com.apple.iTunes.utls.plist"
+            move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.itunescloud.daemon.plist" "/Users/steve/Library/Preferences/com.apple.itunescloud.daemon.plist"
+            move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.itunescloud.plist" "/Users/steve/Library/Preferences/com.apple.itunescloud.plist"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.iTunesHelper.plist" "/Users/steve/Library/Preferences/com.apple.iTunesHelper.plist"
+            move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.itunesstored.plist" "/Users/steve/Library/Preferences/com.apple.itunesstored.plist"
             move_directory_entry "D" "$SOURCE/Library/Music" "/Users/steve/Library/Music"    
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.Music.eq.plist" "/Users/steve/Library/Preferences/com.apple.Music.eq.plist"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.Music.plist" "/Users/steve/Library/Preferences/com.apple.Music.plist"
@@ -517,8 +520,8 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             ;;
         screencaps)
             move_directory_entry "D" "$SOURCE/Screen Capture Staging" "/Users/steve/Screen Capture Staging"
-            [ ! -d "/Users/steve/Library/Workflows/Applications/Folder Actions" ] && mkdir "/Users/steve/Library/Workflows/Applications/Folder Actions"
-            move_directory_entry "F" "$SOURCE/Library/Workflows/Applications/Folder Actions/Add Screen Capture to Photos.workflow" "/Users/steve/Library/Workflows/Applications/Folder Actions/Add Screen Capture to Photos.workflow"
+            [ ! -d "/Users/steve/Library/Workflows/Applications/Folder Actions" ] && mkdir -p "/Users/steve/Library/Workflows/Applications/Folder Actions"
+            move_directory_entry "D" "$SOURCE/Library/Workflows/Applications/Folder Actions/Add Screen Capture to Photos.workflow" "/Users/steve/Library/Workflows/Applications/Folder Actions/Add Screen Capture to Photos.workflow"
             ;;
         screenflow)        # ScreenFlow.app
             ;;
@@ -562,11 +565,16 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             move_directory_entry "D" "$SOURCE/Library/Group Containers/VE8FC488U5.com.panic.Transmit" "/Users/steve/Library/Group Containers/VE8FC488U5.com.panic.Transmit"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.panic.Transmit.plist" "/Users/steve/Library/Preferences/com.panic.Transmit.plist"
             ;;
-        typora)            # Typora
+        typora)         # Typora
             move_directory_entry "D" "$SOURCE/Library/Application Support/abnerworks.Typora" "/Users/steve/Library/Application Support/abnerworks.Typora"
             move_directory_entry "F" "$SOURCE/Library/Preferences/abnerworks.Typora.plist" "/Users/steve/Library/Preferences/abnerworks.Typora.plist"
             ;;
-        vmware)            # VMware Fusion.app
+        tv)             # TV.app
+            move_directory_entry "D" "$SOURCE/Library/Apple TV" "/Users/steve/Library/Apple TV"
+            move_directory_entry "D" "$SOURCE/Library/Application Support/TV" "/Users/steve/Library/Application Support/TV"
+            move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.TV.plist" "/Users/steve/Library/Preferences/com.apple.TV.plist"
+            ;;
+        vmware)         # VMware Fusion.app
             #move_directory_entry "D" "$SOURCE/VMWare" "/Users/steve/VMWare"
             move_directory_entry "D" "$SOURCE/Library/Application Support/VMware Fusion" "/Users/steve/Library/Application Support/VMware Fusion"
             move_directory_entry "D" "$SOURCE/Library/Application Support/VMware Fusion Applications Menu" "/Users/steve/Library/Application Support/VMware Fusion Applications Menu"
@@ -685,7 +693,7 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
         zsh)
             if [ -f "${HOME}/Library/Mobile Documents/com~apple~CloudDocs/.zsh/.zsh_history" ] && \
             [ -d "${HOME}/Library/Mobile Documents/com~apple~CloudDocs/.zsh/.zsh_sessions" ] && \
-            [ -f "${HOME}/Library/Mobile Documents/com~apple~CloudDocs/.zsh/.zshrc" ]~; then
+            [ -f "${HOME}/Library/Mobile Documents/com~apple~CloudDocs/.zsh/.zshrc" ]; then
                 move_directory_entry "F" "$SOURCE/.zshenv" "${HOME}/.zshenv"
                 if [ -f "$SOURCE/.hushlogin" ]; then 
                     move_directory_entry "F" "$SOURCE/.hushlogin" "${HOME}/.hushlogin"

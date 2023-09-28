@@ -213,11 +213,11 @@ case "$1" in
         [ -d /Applications/Visual\ Studio\ Code.app ] && rm -rf /Applications/Visual\ Studio\ Code.app
         mv ~/Downloads/Visual\ Studio\ Code.app /Applications
         ;;
-     vscode-arm)
-        [ -f ~/Downloads/VSCode-darwin-stable.zip ] && rm ~/Downloads/VSCode-darwin-stable.zip
-        curl -o ~/Downloads/VSCode-darwin-stable.zip -L https://az764295.vo.msecnd.net/stable/c722ca6c7eed3d7987c0d5c3df5c45f6b15e77d1/VSCode-darwin-arm64.zip
+    vscode-arm)
+        [ -f ~/Downloads/VSCode-darwin-stable.zip ] && rm ~/Downloads/VSCode-darwin-arm64.zip
+        curl -o ~/Downloads/VSCode-darwin-arm64.zip -L https://az764295.vo.msecnd.net/stable/abd2f3db4bdb28f9e95536dfa84d8479f1eb312d/VSCode-darwin-arm64.zip
         cd ~/Downloads
-        unzip -o ~/Downloads/VSCode-darwin-stable.zip 
+        unzip -o ~/Downloads/VSCode-darwin-arm64.zip 
         [ -d /Applications/Visual\ Studio\ Code.app ] && rm -rf /Applications/Visual\ Studio\ Code.app
         mv ~/Downloads/Visual\ Studio\ Code.app /Applications
         ;;
