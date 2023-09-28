@@ -342,7 +342,6 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
         houdahgeo)      # HoudahGeo.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/com.houdah.HoudahGeo" "/Users/steve/Library/Application Support/com.houdah.HoudahGeo"
             move_directory_entry "D" "$SOURCE/Library/Application Support/HoudahGeo" "/Users/steve/Library/Application Support/HoudahGeo"
-            move_directory_entry "D" "$SOURCE/Library/Group Containers/VE8FC488U5.com.panic.Transmit" "/Users/steve/Library/Group Containers/VE8FC488U5.com.panic.Transmit"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.houdah.HoudahGeo.plist" "/Users/steve/Library/Preferences/com.houdah.HoudahGeo.plist"
             ;;
         hp)             # HP
