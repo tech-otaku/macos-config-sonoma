@@ -143,7 +143,7 @@ case "$1" in
         hdiutil attach ~/Downloads/GoogleDrive.dmg
         open /Volumes/Install\ Google\ Drive/GoogleDrive.pkg    # Opens the Google Drive installer
         ;;
-    houdah)
+    houdahgeo)
         [ -f ~/Downloads/HoudahGeo${HOUDAHGEO}.zip ] && rm ~/Downloads/HoudahGeo${HOUDAHGEO}.zip
         curl -o ~/Downloads/HoudahGeo${HOUDAHGEO}.zip -L https://www.houdah.com/houdahGeo/download_assets/HoudahGeo${HOUDAHGEO}.zip
         cd ~/Downloads
