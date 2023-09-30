@@ -153,12 +153,12 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
         # * * * * APPLICATIONS * * * *
         1pass)            # 1Password Command-Line Tool
             move_directory_entry "D" "$SOURCE/.1pass" "/Users/steve/.1pass"
-            if [ -d "$SOURCE/.op" ]; then
-                move_directory_entry "D" "$SOURCE/.op" "/Users/steve/.op"
-            elif [ -d "$SOURCE/.config/op" ]; then
-                [ ! -d "/Users/steve/.config" ] && mkdir "/Users/steve/.config"
-                move_directory_entry "D" "$SOURCE/.config/op" "/Users/steve/.config/op"
-            fi
+#            if [ -d "$SOURCE/.op" ]; then
+#                move_directory_entry "D" "$SOURCE/.op" "/Users/steve/.op"
+#            elif [ -d "$SOURCE/.config/op" ]; then
+#                [ ! -d "/Users/steve/.config" ] && mkdir "/Users/steve/.config"
+#                move_directory_entry "D" "$SOURCE/.config/op" "/Users/steve/.config/op"
+#            fi
             ;;
         finderatt)        # A Better Finder Attributes 7.app
             if [ -f "$SOURCE/Library/Preferences/ABFSS Registration" ]; then
@@ -411,6 +411,8 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             ;;
         mamp)            # MAMP
             #move_directory_entry "D" "$SOURCE/Applications/MAMP" "/Applications/MAMP"
+            move_directory_entry "D" "$SOURCE/local" "/Users/steve/local"
+            move_directory_entry "D" "$SOURCE/vhosts" "/Users/steve/vhosts"
             move_directory_entry "F" "$SOURCE/Library/Preferences/de.appsolute.MAMP.plist" "/Users/steve/Library/Preferences/de.appsolute.MAMP.plist"
             ;;
         maps)            # Maps.app
