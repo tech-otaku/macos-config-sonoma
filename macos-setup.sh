@@ -291,6 +291,14 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             # move_directory_entry "F" "$SOURCE/Library/Preferences/com.dropbox.tungsten.helper.plist" "/Users/steve/Library/Preferences/com.dropbox.tungsten.helper.plist"
             # move_directory_entry "F" "$SOURCE/Library/Preferences/com.getdropbox.dropbox.plist" "/Users/steve/Library/Preferences/com.getdropbox.dropbox.plist"
             ;;
+        edge)        # Microsoft Edge.app
+            move_directory_entry "D" "$SOURCE/Library/Application Support/Microsoft Edge" "/Users/steve/Library/Application Support/Microsoft Edge"
+            move_directory_entry "D" "$SOURCE/Library/Application Support/Microsoft Edge Beta" "/Users/steve/Library/Application Support/Microsoft Edge Beta"
+            move_directory_entry "D" "$SOURCE/Library/Application Support/Microsoft Edge Canary" "/Users/steve/Library/Application Support/Microsoft Edge Canary"
+            move_directory_entry "D" "$SOURCE/Library/Application Support/Microsoft Edge Dev" "/Users/steve/Library/Application Support/Microsoft Edge Dev"
+            move_directory_entry "D" "$SOURCE/Library/Containers/Microsoft Edge Widgets" "/Users/steve/Library/Containers/Microsoft Edge Widgets"
+            move_directory_entry "F" "$SOURCE/Library/Preferences/com.microsoft.edgemac.plist" "/Users/steve/Library/Preferences/com.microsoft.edgemac.plist"
+            ;;
         evernote)        # Evernote.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/com.evernote.Evernote" "/Users/steve/Library/Application Support/com.evernote.Evernote"
             move_directory_entry "D" "$SOURCE/Library/Application Support/com.evernote.EvernoteHelper" "/Users/steve/Library/Application Support/com.evernote.EvernoteHelper"
