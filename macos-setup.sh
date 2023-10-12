@@ -573,6 +573,9 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             move_directory_entry "D" "$SOURCE/Library/Application Support/Transmit" "/Users/steve/Library/Application Support/Transmit"
             move_directory_entry "D" "$SOURCE/Library/Group Containers/VE8FC488U5.com.panic.Transmit" "/Users/steve/Library/Group Containers/VE8FC488U5.com.panic.Transmit"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.panic.Transmit.plist" "/Users/steve/Library/Preferences/com.panic.Transmit.plist"
+            move_directory_entry "D" "$SOURCE/Library/Caches/Transmit" "/Users/steve/Library/Caches/Transmit"
+            move_directory_entry "D" "$SOURCE/Library/Caches/com.panic.Transmit" "/Users/steve/Library/Caches/com.panic.Transmit"
+            move_directory_entry "D" "$SOURCE/Library/HTTPStorages/com.panic.Transmit" "/Users/steve/Library/HTTPStorages/com.panic.Transmit"
             ;;
         typora)         # Typora
             move_directory_entry "D" "$SOURCE/Library/Application Support/abnerworks.Typora" "/Users/steve/Library/Application Support/abnerworks.Typora"
