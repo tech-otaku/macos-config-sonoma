@@ -280,6 +280,11 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             # /Library/Caches/CrashPlan
             # move_directory_entry "D" "$SOURCE/Library/Logs/CrashPlan" "/Users/steve/Library/Logs/CrashPlan"
             ;;
+        cyberduck)        # Cyberduck.app
+            move_directory_entry "D" "$SOURCE/Library/Group Containers/G69SCX94XU.duck" "/Users/steve/Library/Group Containers/G69SCX94XU.duck"
+            move_directory_entry "D" "$SOURCE/Library/HTTPStorages/ch.sudo.cyberduck" "/Users/steve/Library/HTTPStorages/ch.sudo.cyberduck"
+            move_directory_entry "F" "$SOURCE/Library/Preferences/ch.sudo.cyberduck.plist" "/Users/steve/Library/Preferences/ch.sudo.cyberduck.plist"
+            ;;
         dropbox)        # Dropbox.app
             # * * * * DO NOT USE - SIMPLY INSTALL DROPBOX * * * *
             # move_directory_entry "D" "$SOURCE/Library/Application Support/Dropbox" "/Users/steve/Library/Application Support/Dropbox"
@@ -296,7 +301,7 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             move_directory_entry "D" "$SOURCE/Library/Application Support/Microsoft Edge Beta" "/Users/steve/Library/Application Support/Microsoft Edge Beta"
             move_directory_entry "D" "$SOURCE/Library/Application Support/Microsoft Edge Canary" "/Users/steve/Library/Application Support/Microsoft Edge Canary"
             move_directory_entry "D" "$SOURCE/Library/Application Support/Microsoft Edge Dev" "/Users/steve/Library/Application Support/Microsoft Edge Dev"
-            move_directory_entry "D" "$SOURCE/Library/Containers/Microsoft Edge Widgets" "/Users/steve/Library/Containers/Microsoft Edge Widgets"
+            move_directory_entry "D" "$SOURCE/Library/Containers/com.microsoft.edgemac.wdgExtension" "/Users/steve/Library/Containers/com.microsoft.edgemac.wdgExtension"   # Synonym for the /Users/steve/Library/Containers/Microsoft Edge Widgets/ directory
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.microsoft.edgemac.plist" "/Users/steve/Library/Preferences/com.microsoft.edgemac.plist"
             ;;
         evernote)        # Evernote.app
@@ -661,6 +666,31 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             shopt -u nullglob
             shopt -s dotglob
             ;;
+                # * * * * REMAINING SOURCE FILES AND FOLDERS * * * *
+        remain-list)
+
+            shopt -s nullglob
+            shopt -u dotglob
+
+            # Remaining files/folders on source
+            for f in "$SOURCE"/{..?,.[!.],}*; do        # See https://unix.stackexchange.com/questions/162586/proper-way-to-iterate-through-contents-in-a-directory
+                #echo "$f"
+                NAME=$(basename -- "$f")
+                if [ ! "$NAME" == "Library" ]; then            # Exclude the Library folder
+                    if [ ! -e "/Users/steve/$NAME" ]; then        # file doesn't exist on target
+                        if [ -f "$f" ]; then
+                            echo "[-] $f"
+                        elif [ -d "$f" ]; then
+                            echo "[D] $f"
+                        fi                    
+                    fi
+                fi
+            done
+
+            shopt -u nullglob
+            shopt -s dotglob
+            ;;
+
         # * * * * MISCELLANEOUS * * * *
         bash)
             if [ -f "${HOME}/Library/Mobile Documents/com~apple~CloudDocs/.bash/.bash_logout" ] && \
@@ -822,7 +852,7 @@ create_symbolic_link() {
         fi
         # Creates the symbolic link
         ln -s "${S}" "${T}"
-        if [ $? == 0 ]; then echo `date '+%Y-%m-%d %H:%M:%S'` "[L304:$APP] Created symbolic \"${T}\" (Points to \"${S}\")" >> ~/$LOG; fi
+        if [ $? == 0 ]; then echo `date '+%Y-%m-%d %H:%M:%S'` "[L304:$APP] Created symbolic link \"${T}\" (Points to \"${S}\")" >> ~/$LOG; fi
         #echo "Symbolic link '${T}' created."
     else
         #echo "ERROR: S '${S}' does not exist."

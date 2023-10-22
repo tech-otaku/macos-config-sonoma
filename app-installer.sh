@@ -6,6 +6,7 @@ APPCLEANER="3.6.8"
 AUTHY="2.2.1"
 BBEDIT="14.6.1"
 BLACKLIGHT="2.3.5"
+CYBERDUCK="8.6.3.40040"
 EVERNOTE="7.13_458080"
 FORKLIFT="3.5.8"
 HOUDAHGEO="6.4.2"
@@ -85,6 +86,15 @@ case "$1" in
         hdiutil attach ~/Downloads/CS4_Download.dmg
         #open /Volumes/ChronoSync
         open /Volumes/ChronoSync/Install.pkg
+        ;;
+    cyberduck)
+        [ -f ~/Downloads/Cyberduck-${CYBERDUCK}.zip ] && rm ~/Downloads/Cyberduck-${CYBERDUCK}.zip
+        curl -o ~/Downloads/Cyberduck-${CYBERDUCK}.zip -L https://update.cyberduck.io/Cyberduck-${CYBERDUCK}.zip
+        pushd ~/Downloads
+        unzip -o ~/Downloads/Cyberduck-${CYBERDUCK}.zip
+        popd
+        [ -d /Applications/Cyberduck.app ] && rm -rf /Applications/Cyberduck.app
+        mv ~/Downloads/Cyberduck.app /Applications
         ;;
     dropbox)
         [ -f ~/Downloads/DropboxInstaller.dmg ] && rm ~/Downloads/DropboxInstaller.dmg
