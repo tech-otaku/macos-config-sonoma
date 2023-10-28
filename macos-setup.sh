@@ -3,12 +3,12 @@
 
 # USAGE: [bash] ${HOME}/macos-config-catalina-master/macos-setup.sh <app>
 
-main () {    # See https://stackoverflow.com/questions/13588457/forward-function-declarations-in-a-bash-or-a-shell-script for explanation of main()
+main () {	# See https://stackoverflow.com/questions/13588457/forward-function-declarations-in-a-bash-or-a-shell-script for explanation of main()
 
     if [ -z "$1" ]; then
         clear
         echo 'ERROR: No application was specified.'
-        return    # As this script is executed in the current shell, do not use `exit` as this will close the current shell. Source: https://stackoverflow.com/questions/9640660/any-way-to-exit-bash-script-but-not-quitting-the-terminal
+        return	# As this script is executed in the current shell, do not use `exit` as this will close the current shell. Source: https://stackoverflow.com/questions/9640660/any-way-to-exit-bash-script-but-not-quitting-the-terminal
     fi
 
     # Ask for the administrator password upfront
@@ -44,7 +44,7 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
     fi
 
     if [ "${SOURCE: -1}" == "/" ]; then
-        SOURCE=`echo ${SOURCE%/*}`    # Remove trailing `/` from source path
+        SOURCE=`echo ${SOURCE%/*}`	# Remove trailing `/` from source path
     fi
 
     LOG=-macos-setup-`scutil --get HostName | awk '{print tolower($1)}'`.log
@@ -111,47 +111,47 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
 
     #echo "$SOURCE"
 
-    shopt -s dotglob    # Ensure .hidden files are included
+    shopt -s dotglob	# Ensure .hidden files are included
 
-    VALID=true        # Later set to `false` if $APP is not a valid name
+    VALID=true		# Later set to `false` if $APP is not a valid name
 
     case $APP in
         # * * * * USER FOLDERS * * * *
-        desktop)        # ~/Desktop
-            #populate "Desktop"    # FOR TESTING PURPOSES ONLY!
+        desktop)		# ~/Desktop
+            #populate "Desktop"	# FOR TESTING PURPOSES ONLY!
             read -p "WARNING: The Desktop folder is now synced with iCloud and should not be restored from $SOURCE/. Press enter to continue."
             #move_directory_entry "D" "$SOURCE/Desktop" "/Users/steve/Desktop"
             ;;
-        documents)        # ~/Documents
-            #populate "Documents"    # FOR TESTING PURPOSES ONLY!
+        documents)		# ~/Documents
+            #populate "Documents"	# FOR TESTING PURPOSES ONLY!
             read -p "WARNING: The Documents folder is now synced with iCloud and should not be restored from $SOURCE/. Press enter to continue."
             #move_directory_entry "D" "$SOURCE/Documents" "/Users/steve/Documents"
             ;;
-        downloads)        # ~/Downloads
-            #populate "Downloads"    # FOR TESTING PURPOSES ONLY!
+        downloads)		# ~/Downloads
+            #populate "Downloads"	# FOR TESTING PURPOSES ONLY!
             move_directory_entry "D" "$SOURCE/Downloads" "/Users/steve/Downloads"
             ;;
-        movies)            # ~/Movies
-            #populate "Movies"    # FOR TESTING PURPOSES ONLY!
+        movies)			# ~/Movies
+            #populate "Movies"	# FOR TESTING PURPOSES ONLY!
             move_directory_entry "D" "$SOURCE/Movies" "/Users/steve/Movies"
             ;;
-        music)            # ~/Music
-            #populate "Music"    # FOR TESTING PURPOSES ONLY!
+        music)			# ~/Music
+            #populate "Music"	# FOR TESTING PURPOSES ONLY!
             move_directory_entry "D" "$SOURCE/Music" "/Users/steve/Music"
             ;;
-        pictures)        # ~/Pictures
-            #populate "Pictures"    # FOR TESTING PURPOSES ONLY!
+        pictures)		# ~/Pictures
+            #populate "Pictures"	# FOR TESTING PURPOSES ONLY!
             read -p "WARNING: This script should not be used to restore the Pictures folder from $SOURCE/. Please restore any missing files and folders manually after configuring iCloud. Press enter to continue."
             #move_directory_entry "D" "$SOURCE/Pictures" "/Users/steve/Pictures"
             ;;
-        public)            # ~/Public/Drop Box
-            #populate "Public"    # FOR TESTING PURPOSES ONLY!
+        public)			# ~/Public/Drop Box
+            #populate "Public"	# FOR TESTING PURPOSES ONLY!
             move_directory_entry "D" "$SOURCE/Public" "/Users/steve/Public"
             #sudo rm -rf "$SOURCE/Public"
             #if [ $? == 0 ]; then echo `date '+%Y-%m-%d %H:%M:%S'` "[D103:$APP] Deleted source folder \"$SOURCE/Public\"" >> ~/$LOG; fi
             ;;
         # * * * * APPLICATIONS * * * *
-        1pass)            # 1Password Command-Line Tool
+        1pass)			# 1Password Command-Line Tool
             move_directory_entry "D" "$SOURCE/.1pass" "/Users/steve/.1pass"
 #            if [ -d "$SOURCE/.op" ]; then
 #                move_directory_entry "D" "$SOURCE/.op" "/Users/steve/.op"
@@ -160,24 +160,24 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
 #                move_directory_entry "D" "$SOURCE/.config/op" "/Users/steve/.config/op"
 #            fi
             ;;
-        finderatt)        # A Better Finder Attributes 7.app
+        finderatt)		# A Better Finder Attributes 7.app
             if [ -f "$SOURCE/Library/Preferences/ABFSS Registration" ]; then
                 move_directory_entry "F" "$SOURCE/Library/Preferences/ABFSS Registration" "/Users/steve/Library/Preferences/ABFSS Registration"
             fi 
             move_directory_entry "F" "$SOURCE/Library/Preferences/net.publicspace.abfa7.plist" "/Users/steve/Library/Preferences/net.publicspace.abfa7.plist"
             ;;
-        finderren)         # A Better Finder Rename 11.app
+        finderren) 		# A Better Finder Rename 11.app
             if [ -f "$SOURCE/Library/Preferences/ABFSS Registration" ]; then
                 move_directory_entry "F" "$SOURCE/Library/Preferences/ABFSS Registration" "/Users/steve/Library/Preferences/ABFSS Registration"
             fi 
             move_directory_entry "D" "$SOURCE/Library/Application Support/A Better Finder Rename 11" "/Users/steve/Library/Application Support/A Better Finder Rename 11"
             move_directory_entry "F" "$SOURCE/Library/Preferences/net.publicspace.abfr11.plist" "/Users/steve/Library/Preferences/net.publicspace.abfr11.plist"
             ;;
-        adguard)        # AdGuard.app
+        adguard)		# AdGuard.app
             move_directory_entry "D" "$SOURCE/Library/Group Containers/TC3Q7MAJXF.com.adguard.mac" "/Users/steve/Library/Group Containers/TC3Q7MAJXF.com.adguard.mac"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.adguard.mac.adguard.plist" "/Users/steve/Library/Preferences/com.adguard.mac.adguard.plist"
             ;;
-        adguard-safari)        # AdGuard for Safari.app
+        adguard-safari)		# AdGuard for Safari.app
             move_directory_entry "D" "$SOURCE/Library/Containers/com.adguard.safari.AdGuard.AdvancedBlocking" "/Users/steve/Library/Containers/com.adguard.safari.AdGuard.AdvancedBlocking"
             move_directory_entry "D" "$SOURCE/Library/Containers/com.adguard.safari.AdGuard.BlockerCustom" "/Users/steve/Library/Containers/com.adguard.safari.AdGuard.BlockerCustom"
             move_directory_entry "D" "$SOURCE/Library/Containers/com.adguard.safari.AdGuard.BlockerExtension" "/Users/steve/Library/Containers/com.adguard.safari.AdGuard.BlockerExtension"
@@ -190,19 +190,19 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             move_directory_entry "D" "$SOURCE/Library/Group Containers/TC3Q7MAJXF.com.adguard.safari.AdGuard" "/Users/steve/Library/Group Containers/TC3Q7MAJXF.com.adguard.safari.AdGuard"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.adguard.safari.AdGuard.plist" "/Users/steve/Library/Preferences/com.adguard.safari.AdGuard.plist"
             ;;
-        adobe)            # Adobe Acrobat Reader DC.app
+        adobe)			# Adobe Acrobat Reader DC.app
             move_directory_entry "D" "$SOURCE/Library/Preferences/Adobe" "/Users/steve/Library/Preferences/Adobe"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.adobe.AdobeRdrCEFHelper.plist" "/Users/steve/Library/Preferences/com.adobe.AdobeRdrCEFHelper.plist"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.adobe.crashreporter.plist" "/Users/steve/Library/Preferences/com.adobe.crashreporter.plist"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.adobe.Reader.plist" "/Users/steve/Library/Preferences/com.adobe.Reader.plist"
             # /Library/Preferences/com.adobe.reader.DC.WebResource.plist
             ;;
-        airmail)        # Airmail 3.app
+        airmail)		# Airmail 3.app
             move_directory_entry "D" "$SOURCE/Library/Containers/it.bloop.airmail2" "/Users/steve/Library/Containers/it.bloop.airmail2"
             move_directory_entry "D" "$SOURCE/Library/Group Containers/2E337YPCZY.airmail" "/Users/steve/Library/Group Containers/2E337YPCZY.airmail"
             move_directory_entry "F" "$SOURCE/Library/Preferences/it.bloop.airmail2.plist" "/Users/steve/Library/Preferences/it.bloop.airmail2.plist"
             ;;
-        alfred)         # Alfred 3.app
+        alfred)			# Alfred 3.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/Alfred 3" "/Users/steve/Library/Application Support/Alfred 3"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.runningwithcrayons.Alfred-3.plist" "/Users/steve/Library/Preferences/com.runningwithcrayons.Alfred-3.plist"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.runningwithcrayons.Alfred-Preferences-3.plist" "/Users/steve/Library/Preferences/com.runningwithcrayons.Alfred-Preferences-3.plist"
@@ -211,18 +211,18 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
         appcleaner)     # AppCleaner.app
             move_directory_entry "F" "$SOURCE/Library/Preferences/net.freemacsoft.AppCleaner.plist" "/Users/steve/Library/Preferences/net.freemacsoft.AppCleaner.plist"
             ;;
-        appshelf)       # AppShelf.app
+        appshelf)		# AppShelf.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/AppShelf" "/Users/steve/Library/Application Support/AppShelf"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.kedisoft.AppShelf.plist" "/Users/steve/Library/Preferences/com.kedisoft.AppShelf.plist"
             ;;
         appstore)
             ;;
-        appzapper)        # AppZapper.app
+        appzapper)		# AppZapper.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/AppZapper" "/Users/steve/Library/Application Support/AppZapper"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.appzapper.appzapper2.plist" "/Users/steve/Library/Preferences/com.appzapper.appzapper2.plist"
             #move_directory_entry "F" "$SOURCE/Library/Caches/com.appzapper.appzapper2" "/Users/steve/Library/Caches/com.appzapper.appzapper2"
             ;;
-        atom)            # Atom.app
+        atom)			# Atom.app
             move_directory_entry "D" "$SOURCE/.atom" "/Users/steve/.atom"
             move_directory_entry "D" "$SOURCE/Library/Application Support/Atom" "/Users/steve/Library/Application Support/Atom"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.github.atom.helper.plist" "/Users/steve/Library/Preferences/com.github.atom.helper.plist"
@@ -230,21 +230,21 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             #move_directory_entry "D" "$SOURCE/Library/Caches/com.github.atom" "/Users/steve/Library/Caches/com.github.atom"
             #move_directory_entry "D" "$SOURCE/Library/Caches/com.github.atom.ShipIt" "/Users/steve/Library/Caches/com.github.atom.ShipIt"
             ;;
-        atomic)         # ATOMIC.app
+        atomic) 		# ATOMIC.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/ATOMIC" "/Users/steve/Library/Application Support/ATOMIC"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.micromat.ATOMIC.plist" "/Users/steve/Library/Preferences/com.micromat.ATOMIC.plist"
             # move_directory_entry "D" "$SOURCE/Library/Caches/com.micromat.ATOMIC" "/Users/steve/Library/Caches/com.micromat.ATOMIC"
             ;;
-        authy)         # Authy Desktop.app
+        authy) 		# Authy Desktop.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/Authy Desktop" "/Users/steve/Library/Application Support/Authy Desktop"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.authy.authy-mac.plist" "/Users/steve/Library/Preferences/com.authy.authy-mac.plist"
             ;;
-        backuploupe)    # BackupLoupe.app
+        backuploupe)	# BackupLoupe.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/BackupLoupe" "/Users/steve/Library/Application Support/BackupLoupe"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.soma-zone.BackupLoupe.plist" "/Users/steve/Library/Preferences/com.soma-zone.BackupLoupe.plist"
             # move_directory_entry "D" "$SOURCE/Library/Caches/com.soma-zone.BackupLoupe" "/Users/steve/Library/Caches/com.soma-zone.BackupLoupe"
             ;;
-        bbedit)            # BBEdit.app
+        bbedit)			# BBEdit.app
             #create_symbolic_link "/Users/steve/Dropbox/BBEdit" "/Users/steve/Library/Application Support/BBEdit"
             #move_directory_entry "D" "$SOURCE/Library/BBEdit" "/Users/steve/Library/BBEdit"
             #move_directory_entry "F" "$SOURCE/Library/Preferences/com.barebones.bbedit.plist" "/Users/steve/Library/Preferences/com.barebones.bbedit.plist"
@@ -253,18 +253,18 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             move_directory_entry "D" "$SOURCE/Library/Containers/com.barebones.bbedit" "/Users/steve/Library/Containers/com.barebones.bbedit"
             move_directory_entry "D" "$SOURCE/Library/Application Scripts/com.barebones.bbedit" "/Users/steve/Library/Application Scripts/com.barebones.bbedit"
             ;;
-        blacklight)        # Black Light
+        blacklight)		# Black Light
             move_directory_entry "D" "$SOURCE/Library/Containers/com.michelf.black-light" "/Users/steve/Library/Containers/com.michelf.black-light"
             ;;
-        books)    # Books.app
+        books)	# Books.app
             move_directory_entry "D" "$SOURCE/Library/Containers/com.apple.BKAgentService" "/Users/steve/Library/Containers/com.apple.BKAgentService"
             ;;
-        boxsync)         # Box Sync.app
+        boxsync) 		# Box Sync.app
             # * * * * DO NOT USE - SIMPLY INSTALL BOX SYNC * * * *
             # move_directory_entry "F" "$SOURCE/Library/Preferences/com.box.sync.plist" "/Users/steve/Library/Preferences/com.box.sync.plist"
             # move_directory_entry "D" "$SOURCE/Library/Caches/com.box.sync" "/Users/steve/Library/Caches/com.box.sync"
             ;;
-        chronosync)        # ChronoSync.app
+        chronosync)		# ChronoSync.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/ChronoSync" "/Users/steve/Library/Application Support/ChronoSync" # Includes the important `Tasks` folder where sync documents are stored
             #move_directory_entry "D" "$SOURCE/Library/Logs/ChronoSync" "/Users/steve/Library/Logs/ChronoSync"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.econtechnologies.backgrounder.chronosync.plist" "/Users/steve/Library/Preferences/com.econtechnologies.backgrounder.chronosync.plist"
@@ -273,7 +273,7 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.econtechnologies.backgrounder.chronosync.plist.ypn8gpL" "/Users/steve/Library/Preferences/com.econtechnologies.backgrounder.chronosync.plist.ypn8gpL"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.econtechnologies.chronosync.plist" "/Users/steve/Library/Preferences/com.econtechnologies.chronosync.plist"
             ;;
-        crashplan)        # CrashPlan.app
+        crashplan)		# CrashPlan.app
             # move_directory_entry "D" "$SOURCE/Library/Application Support/CrashPlan" "/Users/steve/Library/Application Support/CrashPlan"
             # /Library/Application Support/CrashPlan
             # move_directory_entry "F" "$SOURCE/Library/Preferences/com.backup42.desktop.plist" "/Users/steve/Library/Preferences/com.backup42.desktop.plist"
@@ -285,11 +285,11 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             move_directory_entry "D" "$SOURCE/Library/HTTPStorages/ch.sudo.cyberduck" "/Users/steve/Library/HTTPStorages/ch.sudo.cyberduck"
             move_directory_entry "F" "$SOURCE/Library/Preferences/ch.sudo.cyberduck.plist" "/Users/steve/Library/Preferences/ch.sudo.cyberduck.plist"
             ;;
-        dropbox)        # Dropbox.app
+        dropbox)		# Dropbox.app
             # * * * * DO NOT USE - SIMPLY INSTALL DROPBOX * * * *
             # move_directory_entry "D" "$SOURCE/Library/Application Support/Dropbox" "/Users/steve/Library/Application Support/Dropbox"
             # move_directory_entry "D" "$SOURCE/Library/Containers/com.getdropbox.dropbox.garcon" "/Users/steve/Library/Containers/com.getdropbox.dropbox.garcon"
-            # move_directory_entry "D" "$SOURCE/Library/Dropbox" "/Users/steve/Library/Dropbox"            # Contains DropboxMacUpdate.app and created during installation?
+            # move_directory_entry "D" "$SOURCE/Library/Dropbox" "/Users/steve/Library/Dropbox"			# Contains DropboxMacUpdate.app and created during installation?
             # move_directory_entry "D" "$SOURCE/Library/Group Containers/com.getdropbox.dropbox.garcon" "/Users/steve/Library/Group Containers/com.getdropbox.dropbox.garcon"
             # move_directory_entry "F" "$SOURCE/Library/Preferences/com.dropbox.DropboxMacUpdate.plist" "/Users/steve/Library/Preferences/com.dropbox.DropboxMacUpdate.plist"
             # move_directory_entry "F" "$SOURCE/Library/Preferences/com.dropbox.DropboxMonitor.plist" "/Users/steve/Library/Preferences/com.dropbox.DropboxMonitor.plist"
@@ -304,7 +304,7 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             move_directory_entry "D" "$SOURCE/Library/Containers/com.microsoft.edgemac.wdgExtension" "/Users/steve/Library/Containers/com.microsoft.edgemac.wdgExtension"   # Synonym for the /Users/steve/Library/Containers/Microsoft Edge Widgets/ directory
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.microsoft.edgemac.plist" "/Users/steve/Library/Preferences/com.microsoft.edgemac.plist"
             ;;
-        evernote)        # Evernote.app
+        evernote)		# Evernote.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/com.evernote.Evernote" "/Users/steve/Library/Application Support/com.evernote.Evernote"
             move_directory_entry "D" "$SOURCE/Library/Application Support/com.evernote.EvernoteHelper" "/Users/steve/Library/Application Support/com.evernote.EvernoteHelper"
             move_directory_entry "D" "$SOURCE/Library/Containers/com.evernote.Evernote" "/Users/steve/Library/Containers/com.evernote.Evernote"
@@ -312,34 +312,34 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             move_directory_entry "D" "$SOURCE/Library/Group Containers/Q79WDW8YH9.com.evernote.Evernote" "/Users/steve/Library/Group Containers/Q79WDW8YH9.com.evernote.Evernote"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.evernote.Evernote.plist" "/Users/steve/Library/Preferences/com.evernote.Evernote.plist"
             ;;
-        firefox)        # Firefox.app
+        firefox)		# Firefox.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/Firefox" "/Users/steve/Library/Application Support/Firefox"
             move_directory_entry "D" "$SOURCE/Library/Mozilla" "/Users/steve/Library/Mozilla"
             move_directory_entry "F" "$SOURCE/Library/Preferences/org.mozilla.firefox.plist" "/Users/steve/Library/Preferences/org.mozilla.firefox.plist"
             ;;
-        forklift)        # ForkLift.app
+        forklift)		# ForkLift.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/ForkLift" "/Users/steve/Library/Application Support/ForkLift"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.binarynights.ForkLift-3.plist" "/Users/steve/Library/Preferences/com.binarynights.ForkLift-3.plist"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.binarynights.ForkLiftMini.plist" "/Users/steve/Library/Preferences/com.binarynights.ForkLiftMini.plist"
             #move_directory_entry "D" "$SOURCE/Library/Caches/com.binarynights.ForkLift-3" "/Users/steve/Library/Caches/com.binarynights.ForkLift-3"
-            #move_directory_entry "D" "$SOURCE/Dropbox/Apps/ForkLift" "/Users/steve/Dropbox/Apps/ForkLift                                                                # Contains Favorites.json"
-            #move_directory_entry "D" "$SOURCE/Dropbox/ForkLift" "/Users/steve/Dropbox/ForkLift                                                                        # Not sure this is still used"
+            #move_directory_entry "D" "$SOURCE/Dropbox/Apps/ForkLift" "/Users/steve/Dropbox/Apps/ForkLift																# Contains Favorites.json"
+            #move_directory_entry "D" "$SOURCE/Dropbox/ForkLift" "/Users/steve/Dropbox/ForkLift																		# Not sure this is still used"
             ;;
-        geekbench)        # Geekbench 4.app
+        geekbench)		# Geekbench 4.app
             # NONE
             ;;
-        github)            # GitHub Desktop.app
+        github)			# GitHub Desktop.app
             move_directory_entry "F" "$SOURCE/.git-commit-message.txt" "/Users/steve/.git-commit-message.txt"
             move_directory_entry "F" "$SOURCE/.gitconfig" "/Users/steve/.gitconfig"
             move_directory_entry "F" "$SOURCE/.gitignore_global" "/Users/steve/.gitignore_global"
             move_directory_entry "D" "$SOURCE/Library/Application Support/GitHub Desktop" "/Users/steve/Library/Application Support/GitHub Desktop"
             move_directory_entry "D" "$SOURCE/Developer" "/Users/steve/Developer"
             ;;
-        gns3)            # GNS3.app
+        gns3)			# GNS3.app
             #move_directory_entry "D" "$SOURCE/Sundry/GNS3" "/Users/steve/Sundry/GNS3"
             move_directory_entry "F" "$SOURCE/Library/Preferences/net.gns3.plist" "/Users/steve/Library/Preferences/net.gns3.plist"
             ;;
-        chrome)            # Google Chrome.app
+        chrome)			# Google Chrome.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/Google" "/Users/steve/Library/Application Support/Google"
             move_directory_entry "D" "$SOURCE/Library/Google" "/Users/steve/Library/Google"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.google.Chrome.plist" "/Users/steve/Library/Preferences/com.google.Chrome.plist"
@@ -348,34 +348,34 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             [ ! -d "/Users/steve/.config" ] && mkdir "/Users/steve/.config"
             move_directory_entry "D" "$SOURCE/.config/hcloud" "/Users/steve/.config/hcloud"
             ;;
-        hewlett)        # Hewlett-Packard
+        hewlett)		# Hewlett-Packard
             ;;
-        hex)            # Hex Fiend.app
+        hex)			# Hex Fiend.app
             ;;
         houdahgeo)      # HoudahGeo.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/com.houdah.HoudahGeo" "/Users/steve/Library/Application Support/com.houdah.HoudahGeo"
             move_directory_entry "D" "$SOURCE/Library/Application Support/HoudahGeo" "/Users/steve/Library/Application Support/HoudahGeo"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.houdah.HoudahGeo.plist" "/Users/steve/Library/Preferences/com.houdah.HoudahGeo.plist"
             ;;
-        hp)             # HP
+        hp)				# HP
             ;;
-        hpscan)         # HP Easy Scan.app
+        hpscan)			# HP Easy Scan.app
             ;;
-        hpstart)        # HP Easy Start.app
+        hpstart)		# HP Easy Start.app
             ;;
-        ibooks)         # iBooks.app
+        ibooks)			# iBooks.app
             ;;
-        imagecapture)    # Image Capture.app
+        imagecapture)	# Image Capture.app
             ;;
-        iterm)            # iTerm.app
+        iterm)			# iTerm.app
             #move_directory_entry "D" "$SOURCE/.iterm2" "/Users/steve/.iterm2"
             #move_directory_entry "F" "$SOURCE/.iterm2_shell_integration.bash" "/Users/steve/.iterm2_shell_integration.bash"
             #move_directory_entry "D" "$SOURCE/Library/Application Support/iTerm" "/Users/steve/Library/Application Support/iTerm"
             move_directory_entry "D" "$SOURCE/Library/Application Support/iTerm2" "/Users/steve/Library/Application Support/iTerm2"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.googlecode.iterm2.plist" "/Users/steve/Library/Preferences/com.googlecode.iterm2.plist"
             ;;
-        itunes)            # iTunes.app / Music.app
-            move_directory_entry "D" "$SOURCE/Library/iTunes" "/Users/steve/Library/iTunes"    
+        itunes)			# iTunes.app / Music.app
+            move_directory_entry "D" "$SOURCE/Library/iTunes" "/Users/steve/Library/iTunes"	
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.iPod.plist" "/Users/steve/Library/Preferences/com.apple.iPod.plist"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.iTunes.eq.plist" "/Users/steve/Library/Preferences/com.apple.iTunes.eq.plist"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.iTunes.Gracenote.plist" "/Users/steve/Library/Preferences/com.apple.iTunes.Gracenote.plist"
@@ -390,7 +390,7 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.Music.eq.plist" "/Users/steve/Library/Preferences/com.apple.Music.eq.plist"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.Music.plist" "/Users/steve/Library/Preferences/com.apple.Music.plist"
             ;;
-        ivacy)            # Ivacy.app
+        ivacy)			# Ivacy.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/gaditek.Ivacy.com" "/Users/steve/Library/Application Support/gaditek.Ivacy.com"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.ivacy.mac.plist" "/Users/steve/Library/Preferences/com.ivacy.mac.plist"
             if [ ! -d "/Users/steve/Library/userData" ]; then
@@ -399,15 +399,15 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             fi
             move_directory_entry "D" "$SOURCE/Library/userData/ivacy" "/Users/steve/Library/userData/ivacy"
             ;;
-        launchcontrol)    # LaunchControl.app
+        launchcontrol)	# LaunchControl.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/LaunchControl" "/Users/steve/Library/Application Support/LaunchControl"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.soma-zone.LaunchControl.plist" "/Users/steve/Library/Preferences/com.soma-zone.LaunchControl.plist"
             ;;
-        littlesnitch)    # Little Snitch Configuration.app
+        littlesnitch)	# Little Snitch Configuration.app
             ;;
-        logioptions)    # Logi Options.app
+        logioptions)	# Logi Options.app
             ;;
-        mail)            # Mail.app
+        mail)			# Mail.app
             move_directory_entry "D" "$SOURCE/Library/Accounts" "/Users/steve/Library/Accounts"
             move_directory_entry "D" "$SOURCE/Library/Mail" "/Users/steve/Library/Mail"
             #move_directory_entry "D" "$SOURCE/Library/Containers/com.apple.mail" "/Users/steve/Library/Containers/com.apple.mail"
@@ -418,17 +418,17 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             #move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.mail-shared.plist" "/Users/steve/Library/Preferences/com.apple.mail-shared.plist"
             #move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.mail.plist" "/Users/steve/Library/Preferences/com.apple.mail.plist"
             ;;
-        maintenance)    # Maintenance.app
+        maintenance)	# Maintenance.app
             ;;
-        malwarebytes)    # Malwarebytes.app
+        malwarebytes)	# Malwarebytes.app
             ;;
-        mamp)            # MAMP
+        mamp)			# MAMP
             #move_directory_entry "D" "$SOURCE/Applications/MAMP" "/Applications/MAMP"
             move_directory_entry "D" "$SOURCE/local" "/Users/steve/local"
             move_directory_entry "D" "$SOURCE/vhosts" "/Users/steve/vhosts"
             move_directory_entry "F" "$SOURCE/Library/Preferences/de.appsolute.MAMP.plist" "/Users/steve/Library/Preferences/de.appsolute.MAMP.plist"
             ;;
-        maps)            # Maps.app
+        maps)			# Maps.app
             ;;
         marsedit)        # MarsEdit.app
             # /Users/steve/Library/Containers/com.red-sweater.marsedit5 --> /Users/steve/Library/Containers/MarsEdit
@@ -437,31 +437,31 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             move_directory_entry "D" "$SOURCE/Library/Group Containers/493CVA9A35.com.red-sweater" "/Users/steve/Library/Group Containers/493CVA9A35.com.red-sweater"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.red-sweater.marsedit.plist" "/Users/steve/Library/Preferences/com.red-sweater.marsedit.plist"
             ;;
-        memoryclean)    # Memory Clean.app
+        memoryclean)	# Memory Clean.app
             ;;
-        messages)        # Messages.app
+        messages)		# Messages.app
             move_directory_entry "D" "$SOURCE/Library/Messages" "/Users/steve/Library/Messages"
             ;;
-        missioncontrol)    # Mission Control.app
+        missioncontrol)	# Mission Control.app
             ;;
-        navicat)        # Navicat
+        navicat)		# Navicat
             move_directory_entry "D" "$SOURCE/Library/Application Support/PremiumSoft CyberTech" "/Users/steve/Library/Application Support/PremiumSoft CyberTech"
             ;;
-        netbeans)        # NetBeans
+        netbeans)		# NetBeans
             move_directory_entry "D" "$SOURCE/Library/Application Support/NetBeans" "/Users/steve/Library/Application Support/NetBeans"
             #move_directory_entry "D" "$SOURCE/Sundry/NetBeansProjects" "/Users/steve/Sundry/NetBeansProjects"
             ;;
-        netspot)        # NetSpot.app
+        netspot)		# NetSpot.app
             ;;
-        noip)            # No-IP DUC.app
+        noip)			# No-IP DUC.app
             ;;
-        notable)        # NetBeans
+        notable)		# NetBeans
             move_directory_entry "F" "$SOURCE/.notable.json" "/Users/steve/.notable.json"
             #move_directory_entry "D" "$SOURCE/Sundry/NetBeansProjects" "/Users/steve/Sundry/NetBeansProjects"
             ;;
-        notes)            # Notes.app
+        notes)			# Notes.app
             ;;
-        office)            # MS Office 365
+        office)			# MS Office 365
             # Excel.app
             move_directory_entry "D" "$SOURCE/Library/Containers/com.microsoft.Excel" "/Users/steve/Library/Containers/com.microsoft.Excel"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.microsoft.Excel.plist" "/Users/steve/Library/Preferences/com.microsoft.Excel.plist"
@@ -484,15 +484,15 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             move_directory_entry "D" "$SOURCE/Library/Group Containers/UBF8T346G9.OfficeOsfWebHost" "/Users/steve/Library/Group Containers/UBF8T346G9.OfficeOsfWebHost"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.microsoft.office.plist" "/Users/steve/Library/Preferences/com.microsoft.office.plist"
             ;;
-        onedrive)        # OneDrive.app
+        onedrive)		# OneDrive.app
             ;;
-        onyx)            # OnyX.app
+        onyx)			# OnyX.app
             ;;
-        patterns)        # Patterns.app
+        patterns)		# Patterns.app
             ;;
-        photobooth)        # Photo Booth.app
+        photobooth)		# Photo Booth.app
             ;;
-        photos)            # Photos.app
+        photos)			# Photos.app
             move_directory_entry "D" "$SOURCE/Library/Containers/com.apple.PhotoIngestService" "/Users/steve/Library/Containers/com.apple.PhotoIngestService"
             move_directory_entry "D" "$SOURCE/Library/Containers/com.apple.photolibraryd" "/Users/steve/Library/Containers/com.apple.photolibraryd"
             move_directory_entry "D" "$SOURCE/Library/Containers/com.apple.PhotoLibraryMigrationUtility" "/Users/steve/Library/Containers/com.apple.PhotoLibraryMigrationUtility"
@@ -506,24 +506,24 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.Photos.plist" "/Users/steve/Library/Preferences/com.apple.Photos.plist"
 
             ;;
-        preview)        # Preview.app
+        preview)		# Preview.app
             ;;
-        quickshade)        # QuickShade
+        quickshade)		# QuickShade
             move_directory_entry "D" "$SOURCE/Library/Containers/jp.questbeat.Shade" "/Users/steve/Library/Containers/jp.questbeat.Shade"
             ;;
-        querious)        # Querious
+        querious)		# Querious
             move_directory_entry "D" "$SOURCE/Library/Application Support/Querious" "/Users/steve/Library/Application Support/Querious"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.araeliumgroup.querious.plist" "/Users/steve/Library/Preferences/com.araeliumgroup.querious.plist"
             ;;
-        quicktime)        # QuickTime Player.app
+        quicktime)		# QuickTime Player.app
             ;;
-        regexrx)        # RegExRX.app
+        regexrx)		# RegExRX.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/RegExRx" "/Users/steve/Library/Application Support/RegExRx"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.mactechnologies.regexrx.plist" "/Users/steve/Library/Preferences/com.mactechnologies.regexrx.plist"
             ;;
-        remindinders)    # Reminders.app
+        remindinders)	# Reminders.app
             ;;
-        safari)            # Safari.app
+        safari)			# Safari.app
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.Safari.Extensions.plist" "/Users/steve/Library/Preferences/com.apple.Safari.Extensions.plist"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.Safari.plist" "/Users/steve/Library/Preferences/com.apple.Safari.plist"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.Safari.SafeBrowsing.plist" "/Users/steve/Library/Preferences/com.apple.Safari.SafeBrowsing.plist"
@@ -537,41 +537,41 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             [ ! -d "/Users/steve/Library/Workflows/Applications/Folder Actions" ] && mkdir -p "/Users/steve/Library/Workflows/Applications/Folder Actions"
             move_directory_entry "D" "$SOURCE/Library/Workflows/Applications/Folder Actions/Add Screen Capture to Photos.workflow" "/Users/steve/Library/Workflows/Applications/Folder Actions/Add Screen Capture to Photos.workflow"
             ;;
-        screenflow)        # ScreenFlow.app
+        screenflow)		# ScreenFlow.app
             ;;
-        screenium)        # Screenium 3 Demo.app
+        screenium)		# Screenium 3 Demo.app
             ;;
-        sequelpro)        # Sequel Pro.app
+        sequelpro)		# Sequel Pro.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/Sequel Pro" "/Users/steve/Library/Application Support/Sequel Pro"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.sequelpro.SequelPro.plist" "/Users/steve/Library/Preferences/com.sequelpro.SequelPro.plist"
             ;;
-        siri)            # Siri.app
+        siri)			# Siri.app
             ;;
-        skitch)            # Skitch.app
+        skitch)			# Skitch.app
             move_directory_entry "D" "$SOURCE/Library/Containers/J8RPQ294UB.com.skitch.SkitchHelper" "/Users/steve/Library/Containers/J8RPQ294UB.com.skitch.SkitchHelper"
             move_directory_entry "D" "$SOURCE/Library/Group Containers/J8RPQ294UB.com.skitch" "/Users/steve/Library/Group Containers/J8RPQ294UB.com.skitch"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.skitch.skitch.plist" "/Users/steve/Library/Preferences/com.skitch.skitch.plist"
             ;;
-        skype)            # Skype.app
+        skype)			# Skype.app
             ;;
-        speedtest)        # Speedtest.app
+        speedtest)		# Speedtest.app
             ;;
-        stickies)        # Stickies.app
+        stickies)		# Stickies.app
             ;;
-        sysprefs)        # System Preferences.app
+        sysprefs)		# System Preferences.app
             ;;
-        textedit)        # TextEdit.app
+        textedit)		# TextEdit.app
             ;;
-        textwrangler)    # TextWrangler.app
+        textwrangler)	# TextWrangler.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/TextWrangler" "/Users/steve/Library/Application Support/TextWrangler"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.barebones.textwrangler.plist" "/Users/steve/Library/Preferences/com.barebones.textwrangler.plist"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.barebones.textwrangler.PreferenceData" "/Users/steve/Library/Preferences/com.barebones.textwrangler.PreferenceData"
             ;;
-        thunderbird)    # Thunderbird.app
+        thunderbird)	# Thunderbird.app
             move_directory_entry "D" "$SOURCE/Library/Thunderbird" "/Users/steve/Library/Thunderbird"
             move_directory_entry "F" "$SOURCE/Library/Preferences/org.mozilla.thunderbird.plist" "/Users/steve/Library/Preferences/org.mozilla.thunderbird.plist"
             ;;
-        timemachine)    # Time Machine.app
+        timemachine)	# Time Machine.app
             ;;
         transmit)       # Transmit.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/com.panic.Transmit" "/Users/steve/Library/Application Support/com.panic.Transmit"
@@ -582,7 +582,7 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             move_directory_entry "D" "$SOURCE/Library/Caches/com.panic.Transmit" "/Users/steve/Library/Caches/com.panic.Transmit"
             move_directory_entry "D" "$SOURCE/Library/HTTPStorages/com.panic.Transmit" "/Users/steve/Library/HTTPStorages/com.panic.Transmit"
             ;;
-        typora)         # Typora
+        typora)		    # Typora
             move_directory_entry "D" "$SOURCE/Library/Application Support/abnerworks.Typora" "/Users/steve/Library/Application Support/abnerworks.Typora"
             move_directory_entry "F" "$SOURCE/Library/Preferences/abnerworks.Typora.plist" "/Users/steve/Library/Preferences/abnerworks.Typora.plist"
             ;;
@@ -591,7 +591,7 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             move_directory_entry "D" "$SOURCE/Library/Application Support/TV" "/Users/steve/Library/Application Support/TV"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.apple.TV.plist" "/Users/steve/Library/Preferences/com.apple.TV.plist"
             ;;
-        vmware)         # VMware Fusion.app
+        vmware)			# VMware Fusion.app
             #move_directory_entry "D" "$SOURCE/VMWare" "/Users/steve/VMWare"
             move_directory_entry "D" "$SOURCE/Library/Application Support/VMware Fusion" "/Users/steve/Library/Application Support/VMware Fusion"
             move_directory_entry "D" "$SOURCE/Library/Application Support/VMware Fusion Applications Menu" "/Users/steve/Library/Application Support/VMware Fusion Applications Menu"
@@ -615,27 +615,27 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
 #                echo `date '+%Y-%m-%d %H:%M:%S'` "[DXXX:$APP] ERROR: Source folder \"$SRC\" does not exist" >> ~/$LOG;
 #            fi
             ;;
-        vscode)            # VS Code.app
+        vscode)			# VS Code.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/Code" "/Users/steve/Library/Application Support/Code"
             move_directory_entry "D" "$SOURCE/.vscode" "/Users/steve/.vscode"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.microsoft.VSCode.plist" "/Users/steve/Library/Preferences/com.microsoft.VSCode.plist"
             ;;
-        vscodium)        # VS Codium.app
+        vscodium)		# VS Codium.app
             move_directory_entry "D" "$SOURCE/Library/Application Support/VSCodium" "/Users/steve/Library/Application Support/VSCodium"
-            move_directory_entry "D" "$SOURCE/.vscode" "/Users/steve/.vscode-oss"
+            move_directory_entry "D" "$SOURCE/.vscode-oss" "/Users/steve/.vscode-oss"
             move_directory_entry "F" "$SOURCE/Library/Preferences/com.visualstudio.code.oss.plist" "/Users/steve/Library/Preferences/com.visualstudio.code.oss.plist"
             ;;
-        whitenoise)        # WhiteNoiseFree.app
+        whitenoise)		# WhiteNoiseFree.app
             ;;
-        wpcli)            # WordPress Command-Line Tool
+        wpcli)			# WordPress Command-Line Tool
             create_symbolic_link "${HOME}/Library/Mobile Documents/com~apple~CloudDocs/.wp-cli_shared" "${HOME}/.wp-cli"
             ;;
         ytdlp)            # YouTube Downloader
             move_directory_entry "D" "$SOURCE/.yt-dlp" "/Users/steve/.yt-dlp"
             ;;
-        xampp)            # XAMPP
+        xampp)			# XAMPP
             ;;
-        xcode)            # Xcode.app”
+        xcode)			# Xcode.app”
             ;;
         # * * * * REMAINING SOURCE FILES AND FOLDERS * * * *
         remaining)
@@ -644,11 +644,11 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             shopt -u dotglob
 
             # Remaining files/folders on source
-            for f in "$SOURCE"/{..?,.[!.],}*; do        # See https://unix.stackexchange.com/questions/162586/proper-way-to-iterate-through-contents-in-a-directory
+            for f in "$SOURCE"/{..?,.[!.],}*; do		# See https://unix.stackexchange.com/questions/162586/proper-way-to-iterate-through-contents-in-a-directory
                 #echo "$f"
                 NAME=$(basename -- "$f")
-                if [ ! "$NAME" == "Library" ]; then            # Exclude the Library folder
-                    if [ ! -e "/Users/steve/$NAME" ]; then        # file doesn't exist on target
+                if [ ! "$NAME" == "Library" ]; then			# Exclude the Library folder
+                    if [ ! -e "/Users/steve/$NAME" ]; then		# file doesn't exist on target
                         read -p "Move the file $f to /Users/steve/$NAME (Y/n)? " MOVE
                         if [[ $MOVE =~ [A-Z] && $MOVE == "Y" ]]; then
                             #echo "Testing $f to /Users/steve/$NAME"
@@ -690,7 +690,6 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             shopt -u nullglob
             shopt -s dotglob
             ;;
-
         # * * * * MISCELLANEOUS * * * *
         bash)
             if [ -f "${HOME}/Library/Mobile Documents/com~apple~CloudDocs/.bash/.bash_logout" ] && \
@@ -757,9 +756,9 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
         fonts)
             move_directory_entry "D" "$SOURCE/Library/Fonts" "/Users/steve/Library/Fonts"
             ;;
-        launchagents-1)    # Housekeep
+        launchagents-1)	# Housekeep
             move_directory_entry "F" "$SOURCE/Library/LaunchAgents/com.steve.housekeep.box-sync.plist" "/Users/steve/Library/LaunchAgents/com.steve.housekeep.box-sync.plist"
-            #launchctl load /Users/steve/Library/LaunchAgents/com.steve.housekeep.box-sync.plist    # Currently disabled
+            #launchctl load /Users/steve/Library/LaunchAgents/com.steve.housekeep.box-sync.plist	# Currently disabled
 
             move_directory_entry "F" "$SOURCE/Library/LaunchAgents/com.steve.housekeep.desktop-filing.plist" "/Users/steve/Library/LaunchAgents/com.steve.housekeep.desktop-filing.plist"
             launchctl load /Users/steve/Library/LaunchAgents/com.steve.housekeep.desktop-filing.plist
@@ -767,13 +766,13 @@ main () {    # See https://stackoverflow.com/questions/13588457/forward-function
             move_directory_entry "F" "$SOURCE/Library/LaunchAgents/com.steve.housekeep.downloads.plist" "/Users/steve/Library/LaunchAgents/com.steve.housekeep.downloads.plist"
             launchctl load /Users/steve/Library/LaunchAgents/com.steve.housekeep.downloads.plist
             ;;
-        launchagents-2)    # Airmail, Mail and Outlook
+        launchagents-2)	# Airmail, Mail and Outlook
             # Airmail
             move_directory_entry "F" "$SOURCE/Library/LaunchAgents/com.steve.Airmail.open.plist" "/Users/steve/Library/LaunchAgents/com.steve.Airmail.open.plist"
-            #launchctl load /Users/steve/Library/LaunchAgents/com.steve.Airmail.open.plist            # Currently disabled
+            #launchctl load /Users/steve/Library/LaunchAgents/com.steve.Airmail.open.plist			# Currently disabled
 
             move_directory_entry "F" "$SOURCE/Library/LaunchAgents/com.steve.Airmail.close.plist" "/Users/steve/Library/LaunchAgents/com.steve.Airmail.close.plist"
-            #launchctl load /Users/steve/Library/LaunchAgents/com.steve.Airmail.close.plist            # Currently disabled
+            #launchctl load /Users/steve/Library/LaunchAgents/com.steve.Airmail.close.plist			# Currently disabled
 
             # Mail
             move_directory_entry "F" "$SOURCE/Library/LaunchAgents/com.steve.Mail.open.plist" "/Users/steve/Library/LaunchAgents/com.steve.Mail.open.plist"
@@ -862,37 +861,37 @@ create_symbolic_link() {
 
 move_directory_entry () {
 
-    E=$1        # E[ntry Type]    F=file, D=directory
-    S=$2        # S[ource]        /Users/steve/TM Restore 2018-03-30/steve/Library/Application Support/MarsEdit
-    T=$3        # T[arget]        /Users/steve/Library/Application Support/MarsEdit
+    E=$1		# E[ntry Type]	F=file, D=directory
+    S=$2		# S[ource]		/Users/steve/TM Restore 2018-03-30/steve/Library/Application Support/MarsEdit
+    T=$3		# T[arget]		/Users/steve/Library/Application Support/MarsEdit
 
     #echo $E
     #echo "$S"
     #echo "$T"
 
-    if [ $E == "F" ]; then    # directory entry is a file
-        if [ -f "$S" ]; then    # if the file exists on the source
-            if [ -f "$T" ]; then     # if the file exists on the target...
-                rm "$T"                    #    ...delete it on the target
+    if [ $E == "F" ]; then	# directory entry is a file
+        if [ -f "$S" ]; then	# if the file exists on the source
+            if [ -f "$T" ]; then 	# if the file exists on the target...
+                rm "$T"					#    ...delete it on the target
                 if [ $? == 0 ]; then echo `date '+%Y-%m-%d %H:%M:%S'` "[F101:$APP] Deleted target file \"$T\"" >> ~/$LOG; fi
             fi
-            mv "$S" "$T"            # move the source file to the target
+            mv "$S" "$T"			# move the source file to the target
             if [ $? == 0 ]; then echo `date '+%Y-%m-%d %H:%M:%S'` "[F102:$APP] Moved source file \"$S\" to target file \"$T\"" >> ~/$LOG; fi
         else
             echo `date '+%Y-%m-%d %H:%M:%S'` "[FXXX:$APP] ERROR: Source file \"$S\" does not exist" >> ~/$LOG;
         fi
-    elif [ $E == "D" ]; then    # directory entry is a folder
-        if [ -d "$S" ]; then        # if the folder exists on the source
-            if [ -d "$T" ]; then         # if the folder exists on the target...
-                rm -rf "$T"/*                    # ...delete its contents on the target
-                if [ $? == 0 ]; then echo `date '+%Y-%m-%d %H:%M:%S'` "[D101:$APP] Deleted contents of target folder \"$T\"" >> ~/$LOG; fi
-                mv "$S"/* "$T"                    # ...move the contents of the source folder to the target folder
-                if [ $? == 0 ]; then echo `date '+%Y-%m-%d %H:%M:%S'` "[D102:$APP] Moved contents of source folder \"$S\" to target folder \"$T\"" >> ~/$LOG; fi
-                sudo rm -rf "$S"                        # ...delete the source folder
-                if [ $? == 0 ]; then echo `date '+%Y-%m-%d %H:%M:%S'` "[D103:$APP] Deleted source folder \"$S\"" >> ~/$LOG; fi
+    elif [ $E == "D" ]; then	# directory entry is a folder
+        if [ -d "$S" ]; then		# if the folder exists on the source
+            if [ -d "$T" ]; then 		# if the folder exists on the target...
+            	rm -rf "$T"/*					# ...delete its contents on the target
+            	if [ $? == 0 ]; then echo `date '+%Y-%m-%d %H:%M:%S'` "[D101:$APP] Deleted contents of target folder \"$T\"" >> ~/$LOG; fi
+            	mv "$S"/* "$T"					# ...move the contents of the source folder to the target folder
+            	if [ $? == 0 ]; then echo `date '+%Y-%m-%d %H:%M:%S'` "[D102:$APP] Moved contents of source folder \"$S\" to target folder \"$T\"" >> ~/$LOG; fi
+            	sudo rm -rf "$S"						# ...delete the source folder
+            	if [ $? == 0 ]; then echo `date '+%Y-%m-%d %H:%M:%S'` "[D103:$APP] Deleted source folder \"$S\"" >> ~/$LOG; fi
             else
-                sudo mv "$S" "$T"                # ...move the source folder to the target folder
-                if [ $? == 0 ]; then echo `date '+%Y-%m-%d %H:%M:%S'` "[D202:$APP] Moved source folder \"$S\" to target folder \"$T\"" >> ~/$LOG; fi
+            	sudo mv "$S" "$T"				# ...move the source folder to the target folder
+            	if [ $? == 0 ]; then echo `date '+%Y-%m-%d %H:%M:%S'` "[D202:$APP] Moved source folder \"$S\" to target folder \"$T\"" >> ~/$LOG; fi
             fi
         else
             echo `date '+%Y-%m-%d %H:%M:%S'` "[DXXX:$APP] ERROR: Source folder \"$S\" does not exist" >> ~/$LOG;
